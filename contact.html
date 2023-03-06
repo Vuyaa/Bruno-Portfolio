@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bruno | Contact</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="styles/style.css" />
+  <link rel="icon" href="images/favicon.ico">
+  <script src="https://unpkg.com/vue@next"></script>
+
+
+</head>
+
+<body>
+  <div id="app">
+    <div id="top-banner"></div>
+    <div id="wrap">
+      <div id="header">
+        <h1><a href="#">Bruno</a></h1>
+        <h2>Web-Development</h2>
+        <ul id="nav">
+          <li><a href="index.html">Home</a><span>/</span></li>
+          <li><a href="about.html">About</a><span>/</span></li>
+          <li><a href="portfolio.html">Portfolio</a><span>/</span></li>
+          <li class="current"><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <!--end header-->
+      <div id="main">
+        <div id="content">
+          <h2 class="page-title">Contact</h2>
+          <p>Please use the form below if you'd like to get in touch about hiring me or if you would like to discuss
+            anything else. </p>
+          <div id="contact-form">
+            <form @submit.prevent="submit">
+              <input for="name_field" id="form_name" type="text" name="name" value="Name"
+                onFocus="if(this.value=='Name'){this.value=''};" onBlur="if(this.value==''){this.value='Name'};" />
+              <input for="email_field" id="form_email" type="text" name="email" value="Email"
+                onFocus="if(this.value=='Email'){this.value=''};" onBlur="if(this.value==''){this.value='Email'};" />
+              <input id="form_subject" type="text" name="subject" value="Subject"
+                onFocus="if(this.value=='Subject'){this.value=''};"
+                onBlur="if(this.value==''){this.value='Subject'};" />
+              <textarea for="message_field" id="form_message" rows="10" cols="40" name="message" value="Message"
+              onFocus="if(this.value=='Message'){this.value=''};" onBlur="if(this.value==''){this.value='Message'};"></textarea>
+              <input id="form_submit" class="button" type="submit" name="submit" value="Submit" />
+            </form>
+          </div>
+        </div>
+        <!--end content-->
+        <div id="sidebar">
+          <h3 class="sidebar-title">Get In Touch</h3>
+          <p>Would you like to discuss hiring me for a project you have in mind? If so, please contact me using one of
+            the options below.</p>
+          <b>Email</b>
+          <p>BrunoVujevic1@gmail.com</p>
+          <b>Phone</b>
+          <p>015207979509</p>
+          <b>Address</b>
+          <p>Brenzstrasse 13<br>
+            74523 Schwabisch Hall
+          </p>
+        </div>
+        <!--end sidebar-->
+      </div>
+      <!--end main-->
+      <div class="line"></div>
+      <div id="footer">
+        <p class="social"><a href="https://github.com/Vuyaa" target="_blank">Follow Me On GitHub »</a></p>
+        <p class="social"><a href="https://twitter.com/bruno_vujevic" target="_blank">Follow Me On Twitter »</a></p>
+        <p class="social"><a href="https://www.linkedin.com/in/bruno-vujevic-84b489267/" target="_blank">Follow Me On
+            linkedIn »</a></p>
+      </div>
+      <!--end footer-->
+    </div>
+    <!--end wrap-->
+  </div>
+  <script>
+    const App = {
+      data() {
+        return {
+          email: '',
+          name: '',
+          message: ''
+        };
+      },
+      methods: {
+        async submit(event) {
+          const { email, name, message } = Object.fromEntries(new FormData(event.target));
+          this.name = name;
+          this.email = email;
+          this.message = message;
+
+          const js = await fetch("http://localhost:3000/email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name: this.name, email: this.email, message: this.message })
+          });
+          const text = js.text();
+          console.log("got back", text)
+          document.getElementById("form_subject").value = "Subject";
+          document.getElementById("form_message").value = "Message";
+        alert("Your message submitted successfully");
+        }
+      }
+    };
+    const app = Vue.createApp(App);
+    app.mount("#app");
+  </script>
+
+</body>
+
+</html>
