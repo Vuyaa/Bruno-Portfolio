@@ -292,8 +292,14 @@ blockquote{
 	-moz-box-shadow:0 0 10px #aaa;
 	box-shadow:0 0 10px #aaa;
 }
+
+
 img.post-image{
 	border-radius: 4%;
+}
+img.post-image:hover {
+    transform: scale(1.1);
+	box-shadow: #0B79A3 0 0 15px;
 }
 .latest-project p{
 	margin-bottom:0;
