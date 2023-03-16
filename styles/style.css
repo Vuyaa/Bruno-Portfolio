@@ -1,8 +1,10 @@
 
 
-@import "reset.css";
-
-
+@media only screen and (max-width: 600px) {
+	body {
+	  font-size: x-small;
+	}
+  }
 
 .hide{
 	display:none;
@@ -20,6 +22,7 @@ body{
 	font:normal 14px/1.618 arial, sans-serif;
 	background:url(../images/background.jpg) !important;
 	color:#444;
+	background-size: cover !important;
 }
 h1, h2, h3, h4, h5, h6{
 	margin:20px 0 0 0;
